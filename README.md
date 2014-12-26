@@ -7,6 +7,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/indigophp/supervisor-event.svg?style=flat-square)](https://scrutinizer-ci.com/g/indigophp/supervisor-event)
 [![HHVM Status](https://img.shields.io/hhvm/indigophp/supervisor-event.svg?style=flat-square)](http://hhvm.h4cc.de/package/indigophp/supervisor-event)
 [![Total Downloads](https://img.shields.io/packagist/dt/indigophp/supervisor-event.svg?style=flat-square)](https://packagist.org/packages/indigophp/supervisor-event)
+[![Dependency Status](https://www.versioneye.com/user/projects/549ca9426b1b817159000780/badge.svg?style=flat)](https://www.versioneye.com/user/projects/549ca9426b1b817159000780)
 
 **Listen to Supervisor events in PHP.**
 
