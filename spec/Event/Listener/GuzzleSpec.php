@@ -6,7 +6,7 @@ use GuzzleHttp\Stream\StreamInterface;
 use Indigo\Supervisor\Stub\Handler;
 use PhpSpec\ObjectBehavior;
 
-class StreamSpec extends ObjectBehavior
+class GuzzleSpec extends ObjectBehavior
 {
     function let(StreamInterface $inputStream, StreamInterface $outputStream)
     {

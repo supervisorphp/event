@@ -16,28 +16,14 @@ use Indigo\Supervisor\Event\Handler;
 use Indigo\Supervisor\Event\Notification;
 use Indigo\Supervisor\Exception\EventHandlingFailed;
 use Indigo\Supervisor\Exception\StopListener;
-use GuzzleHttp\Stream\StreamInterface;
-use GuzzleHttp\Stream\Utils;
 
 /**
- * Listener using guzzle streams
+ * Base for stream based listeners
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Stream implements Listener
+abstract class Stream implements Listener
 {
-    use RawDataParser;
-
-    /**
-     * @var StreamInterface
-     */
-    protected $inputStream;
-
-    /**
-     * @var StreamInterface
-     */
-    protected $outputStream;
-
     /**
      * Listener state: listen to events or not
      *
@@ -46,42 +32,12 @@ class Stream implements Listener
     protected $listen = true;
 
     /**
-     * @param StreamInterface $inputStream
-     * @param StreamInterface $outputStream
-     */
-    public function __construct(StreamInterface $inputStream, StreamInterface $outputStream)
-    {
-        $this->inputStream = $inputStream;
-        $this->outputStream = $outputStream;
-    }
-
-    /**
-     * Returns the input stream
-     *
-     * @return StreamInterface
-     */
-    public function getInputStream()
-    {
-        return $this->inputStream;
-    }
-
-    /**
-     * Returns the output stream
-     *
-     * @return StreamInterface
-     */
-    public function getOutputStream()
-    {
-        return $this->outputStream;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function listen(Handler $handler)
     {
         while ($this->listen) {
-            $this->outputStream->write("READY\n");
+            $this->write("READY\n");
 
             if ($notification = $this->getNotification()) {
                 $this->handle($handler, $notification);
@@ -99,9 +55,9 @@ class Stream implements Listener
     {
         try {
             $handler->handle($notification);
-            $this->outputStream->write("RESULT 2\nOK");
+            $this->write("RESULT 2\nOK");
         } catch (EventHandlingFailed $e) {
-            $this->outputStream->write("RESULT 4\nFAIL");
+            $this->write("RESULT 4\nFAIL");
         } catch (StopListener $e) {
             $this->listen = false;
         }
@@ -114,10 +70,10 @@ class Stream implements Listener
      */
     protected function getNotification()
     {
-        if ($header = trim(Utils::readLine($this->inputStream))) {
+        if ($header = $this->read()) {
             $header = $this->parseData($header);
 
-            $payload = $this->inputStream->read((int) $header['len']);
+            $payload = $this->read($header['len']);
             $payload = explode("\n", $payload, 2);
             isset($payload[1]) or $payload[1] = null;
 
@@ -128,4 +84,41 @@ class Stream implements Listener
             return new Notification($header, $payload, $body);
         }
     }
+
+    /**
+     * Parses colon devided data
+     *
+     * @param string $rawData
+     *
+     * @return array
+     */
+    protected function parseData($rawData)
+    {
+        $outputData = [];
+
+        foreach (explode(' ', $rawData) as $data) {
+            $data = explode(':', $data);
+            $outputData[$data[0]] = $data[1];
+        }
+
+        return $outputData;
+    }
+
+    /**
+     * Reads data from input stream
+     *
+     * @param integer $length If given read this size of bytes, read a line anyway
+     *
+     * @return string
+     */
+    abstract protected function read($length = null);
+
+    /**
+     * Writes data to output stream
+     *
+     * @param string $value
+     *
+     * @return integer
+     */
+    abstract protected function write($value);
 }

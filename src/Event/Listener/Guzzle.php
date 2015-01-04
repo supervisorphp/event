@@ -15,33 +15,32 @@ use Indigo\Supervisor\Event\Handler;
 use Indigo\Supervisor\Event\Notification;
 use Indigo\Supervisor\Exception\EventHandlingFailed;
 use Indigo\Supervisor\Exception\StopListener;
+use GuzzleHttp\Stream\StreamInterface;
+use GuzzleHttp\Stream\Utils;
 
 /**
- * Listener for standard IO streams
+ * Listener using guzzle streams
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Standard extends Stream
+class Guzzle extends Stream
 {
     /**
-     * @var resource
+     * @var StreamInterface
      */
-    protected $inputStream = STDIN;
+    protected $inputStream;
 
     /**
-     * @var resource
+     * @var StreamInterface
      */
-    protected $outputStream = STDOUT;
+    protected $outputStream;
 
     /**
-     * @param resource $inputStream
-     * @param resource $outputStream
+     * @param StreamInterface $inputStream
+     * @param StreamInterface $outputStream
      */
-    public function __construct($inputStream = STDIN, $outputStream = STDOUT)
+    public function __construct(StreamInterface $inputStream, StreamInterface $outputStream)
     {
-        $this->assertValidStreamResource($inputStream);
-        $this->assertValidStreamResource($outputStream);
-
         $this->inputStream = $inputStream;
         $this->outputStream = $outputStream;
     }
@@ -49,7 +48,7 @@ class Standard extends Stream
     /**
      * Returns the input stream
      *
-     * @return resource
+     * @return StreamInterface
      */
     public function getInputStream()
     {
@@ -59,25 +58,11 @@ class Standard extends Stream
     /**
      * Returns the output stream
      *
-     * @return resource
+     * @return StreamInterface
      */
     public function getOutputStream()
     {
         return $this->outputStream;
-    }
-
-    /**
-     * Asserts that a given input is a valid stream resource
-     *
-     * @param resource $stream
-     *
-     * @throws \InvalidArgumentException If $stream is not a valid resource
-     */
-    private function assertValidStreamResource($stream)
-    {
-        if (!is_resource($stream)) {
-            throw new \InvalidArgumentException('Invalid resource for IO stream');
-        }
     }
 
     /**
@@ -86,10 +71,10 @@ class Standard extends Stream
     protected function read($length = null)
     {
         if (is_null($length)) {
-            return trim(fgets($this->inputStream));
+            return trim(Utils::readLine($this->inputStream));
         }
 
-        return fread($this->inputStream, $length);
+        return $this->inputStream->read($length);
     }
 
     /**
@@ -97,6 +82,6 @@ class Standard extends Stream
      */
     protected function write($value)
     {
-        return @fwrite($this->outputStream, $value);
+        return $this->outputStream->write($value);
     }
 }
