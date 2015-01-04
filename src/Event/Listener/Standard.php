@@ -24,6 +24,8 @@ use Indigo\Supervisor\Exception\StopListener;
  */
 class Standard implements Listener
 {
+    use RawDataParser;
+
     /**
      * @var resource
      */
@@ -122,25 +124,6 @@ class Standard implements Listener
 
             return new Notification($header, $payload, $body);
         }
-    }
-
-    /**
-     * Parses colon devided data
-     *
-     * @param string $rawData
-     *
-     * @return array
-     */
-    protected function parseData($rawData)
-    {
-        $outputData = [];
-
-        foreach (explode(' ', $rawData) as $data) {
-            $data = explode(':', $data);
-            $outputData[$data[0]] = $data[1];
-        }
-
-        return $outputData;
     }
 
     /**

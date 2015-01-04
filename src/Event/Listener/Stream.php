@@ -26,6 +26,8 @@ use GuzzleHttp\Stream\Utils;
  */
 class Stream implements Listener
 {
+    use RawDataParser;
+
     /**
      * @var StreamInterface
      */
@@ -106,24 +108,5 @@ class Stream implements Listener
 
             return new Notification($header, $payload, $body);
         }
-    }
-
-    /**
-     * Parses colon devided data
-     *
-     * @param string $rawData
-     *
-     * @return array
-     */
-    protected function parseData($rawData)
-    {
-        $outputData = [];
-
-        foreach (explode(' ', $rawData) as $data) {
-            $data = explode(':', $data);
-            $outputData[$data[0]] = $data[1];
-        }
-
-        return $outputData;
     }
 }
