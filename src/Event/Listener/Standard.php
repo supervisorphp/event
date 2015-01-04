@@ -37,6 +37,13 @@ class Standard implements Listener
     protected $outputStream = STDOUT;
 
     /**
+     * Listener state: listen to events or not
+     *
+     * @var boolean
+     */
+    protected $listen = true;
+
+    /**
      * @param resource $inputStream
      * @param resource $outputStream
      */
@@ -88,19 +95,30 @@ class Standard implements Listener
      */
     public function listen(Handler $handler)
     {
-        while (true) {
+        while ($this->listen) {
             $this->write("READY\n");
 
             if ($notification = $this->getNotification()) {
-                try {
-                    $handler->handle($notification);
-                    $this->write("RESULT 2\nOK");
-                } catch (EventHandlingFailed $e) {
-                    $this->write("RESULT 4\nFAIL");
-                } catch (StopListener $e) {
-                    break;
-                }
+                $this->handle($handler, $notification);
             }
+        }
+    }
+
+    /**
+     * Handles the notification
+     *
+     * @param Handler      $handler
+     * @param Notification $notification
+     */
+    protected function handle(Handler $handler, Notification $notification)
+    {
+        try {
+            $handler->handle($notification);
+            $this->write("RESULT 2\nOK");
+        } catch (EventHandlingFailed $e) {
+            $this->write("RESULT 4\nFAIL");
+        } catch (StopListener $e) {
+            $this->listen = false;
         }
     }
 
