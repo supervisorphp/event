@@ -41,10 +41,19 @@ $listener = new Standard;
 $listener->listen($handler);
 ```
 
+Currently available listeners:
+
+- Standard: Listents to standard input stream, writes to standard output
+- Guzzle: Uses `StreamInterface` to provide an easy interface for reading/writting
+
+
 Additionally you can use two exceptions to control the listeners itself:
 
 - `Indigo\Supervisor\Exception\StopListener`: indicates that the `Listener` should stop listening for further events.
 - `Indigo\Supervisor\Exception\EventHandlingFailed`: indicates that handling the event failed, `Listener` should return with a FAIL response.
+
+Any other unhandled exceptions/errors will cause the listener to stop.
+
 
 Check the Supervisor docs for more about [Events](http://supervisord.org/events.htm).
 
