@@ -117,8 +117,6 @@ abstract class Stream implements Listener
      * Writes data to output stream
      *
      * @param string $value
-     *
-     * @return integer
      */
     abstract protected function write($value);
 }
