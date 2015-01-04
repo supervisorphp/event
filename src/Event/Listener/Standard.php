@@ -11,11 +11,6 @@
 
 namespace Indigo\Supervisor\Event\Listener;
 
-use Indigo\Supervisor\Event\Handler;
-use Indigo\Supervisor\Event\Notification;
-use Indigo\Supervisor\Exception\EventHandlingFailed;
-use Indigo\Supervisor\Exception\StopListener;
-
 /**
  * Listener for standard IO streams
  *
