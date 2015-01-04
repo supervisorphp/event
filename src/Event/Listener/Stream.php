@@ -46,7 +46,8 @@ class Stream implements Listener
     protected $listen = true;
 
     /**
-     * @param EmitterInterface $emitter
+     * @param StreamInterface $inputStream
+     * @param StreamInterface $outputStream
      */
     public function __construct(StreamInterface $inputStream, StreamInterface $outputStream)
     {
