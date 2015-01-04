@@ -16,20 +16,24 @@ class GuzzleSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Supervisor\Event\Listener\Stream');
+    }
+
+    function it_is_a_listener()
+    {
         $this->shouldImplement('Indigo\Supervisor\Event\Listener');
     }
 
-    function it_should_have_an_input_stream(StreamInterface $inputStream)
+    function it_has_an_input_stream(StreamInterface $inputStream)
     {
         $this->getInputStream()->shouldReturn($inputStream);
     }
 
-    function it_should_have_an_output_stream(StreamInterface $outputStream)
+    function it_has_an_output_stream(StreamInterface $outputStream)
     {
         $this->getOutputStream()->shouldReturn($outputStream);
     }
 
-    function it_should_allow_to_listen(StreamInterface $inputStream, StreamInterface $outputStream)
+    function it_listens_to_events(StreamInterface $inputStream, StreamInterface $outputStream)
     {
         $handler = new Handler;
 

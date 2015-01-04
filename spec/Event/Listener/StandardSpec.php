@@ -10,25 +10,29 @@ class StandardSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Supervisor\Event\Listener\Standard');
-        $this->shouldHaveType('Indigo\Supervisor\Event\Listener');
     }
 
-    function it_should_have_an_input_stream()
+    function it_is_a_listener()
+    {
+        $this->shouldImplement('Indigo\Supervisor\Event\Listener');
+    }
+
+    function it_has_an_input_stream()
     {
         $this->getInputStream()->shouldReturn(STDIN);
     }
 
-    function it_should_have_an_output_stream()
+    function it_has_an_output_stream()
     {
         $this->getOutputStream()->shouldReturn(STDOUT);
     }
 
-    function it_should_throw_an_exception_when_invalid_resource_passed()
+    function it_throws_an_exception_when_invalid_resource_passed()
     {
         $this->shouldThrow('InvalidArgumentException')->during('__construct', ['invalid_resource']);
     }
 
-    function it_should_allow_to_listen()
+    function it_listens_to_events()
     {
         $handler = new Handler;
         $inputStream = fopen('php://temp', 'r+');

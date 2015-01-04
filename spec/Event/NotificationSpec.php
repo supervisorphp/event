@@ -3,7 +3,6 @@
 namespace spec\Indigo\Supervisor\Event;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class NotificationSpec extends ObjectBehavior
 {
@@ -33,18 +32,18 @@ class NotificationSpec extends ObjectBehavior
         $this->shouldHaveType('Indigo\Supervisor\Event\Notification');
     }
 
-    function it_should_have_a_name()
+    function it_has_a_name()
     {
         $this->getName()->shouldReturn('PROCESS_COMMUNICATION_STDOUT');
     }
 
-    function it_should_allow_to_get_a_header()
+    function it_returns_a_header()
     {
         $this->getHeader('ver')->shouldReturn('3.0');
         $this->getHeader('non_existent')->shouldReturn(null);
     }
 
-    function it_should_allow_to_get_all_headers()
+    function it_returns_all_headers()
     {
         $this->getHeader()->shouldReturn([
             'ver'        => '3.0',
@@ -57,12 +56,12 @@ class NotificationSpec extends ObjectBehavior
         ]);
     }
 
-    function it_should_allow_to_get_one_payload_item()
+    function it_returns_one_payload_item()
     {
         $this->getPayload('pid')->shouldReturn('123');
     }
 
-    function it_should_allow_to_get_the_whole_payload()
+    function it_returns_the_whole_payload()
     {
         $this->getPayload()->shouldReturn([
             'processname' => 'foo',
@@ -71,7 +70,7 @@ class NotificationSpec extends ObjectBehavior
         ]);
     }
 
-    function it_should_allow_to_get_body()
+    function it_returns_the_body()
     {
         $this->getBody()->shouldReturn('This is the data that was sent between the tags');
     }
