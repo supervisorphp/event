@@ -1,21 +1,21 @@
 <?php
 
 /*
- * This file is part of the Indigo Supervisor package.
+ * This file is part of the Supervisor Event package.
  *
- * (c) Indigo Development Team
+ * (c) Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Supervisor\Event\Listener;
+namespace Supervisor\Event\Listener;
 
-use Indigo\Supervisor\Event\Listener;
-use Indigo\Supervisor\Event\Handler;
-use Indigo\Supervisor\Event\Notification;
-use Indigo\Supervisor\Exception\EventHandlingFailed;
-use Indigo\Supervisor\Exception\StopListener;
+use Supervisor\Event\Listener;
+use Supervisor\Event\Handler;
+use Supervisor\Event\Notification;
+use Supervisor\Exception\EventHandlingFailed;
+use Supervisor\Exception\StopListener;
 
 /**
  * Base for stream based listeners

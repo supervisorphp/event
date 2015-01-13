@@ -1,18 +1,18 @@
 <?php
 
 /*
- * This file is part of the Indigo Supervisor package.
+ * This file is part of the Supervisor Event package.
  *
- * (c) Indigo Development Team
+ * (c) Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Supervisor\Event\Handler;
+namespace Supervisor\Event\Handler;
 
-use Indigo\Supervisor\Event\Handler;
-use Indigo\Supervisor\Event\Notification;
+use Supervisor\Event\Handler;
+use Supervisor\Event\Notification;
 
 /**
  * Accepts a callable

@@ -1,20 +1,20 @@
 <?php
 
-namespace spec\Indigo\Supervisor\Event\Listener;
+namespace spec\Supervisor\Event\Listener;
 
-use Indigo\Supervisor\Stub\Handler;
+use Supervisor\Stub\Handler;
 use PhpSpec\ObjectBehavior;
 
 class StandardSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Indigo\Supervisor\Event\Listener\Standard');
+        $this->shouldHaveType('Supervisor\Event\Listener\Standard');
     }
 
     function it_is_a_listener()
     {
-        $this->shouldImplement('Indigo\Supervisor\Event\Listener');
+        $this->shouldImplement('Supervisor\Event\Listener');
     }
 
     function it_has_an_input_stream()

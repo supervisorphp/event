@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Indigo\Supervisor\Event;
+namespace spec\Supervisor\Event;
 
 use PhpSpec\ObjectBehavior;
 
@@ -29,7 +29,7 @@ class NotificationSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Indigo\Supervisor\Event\Notification');
+        $this->shouldHaveType('Supervisor\Event\Notification');
     }
 
     function it_has_a_name()

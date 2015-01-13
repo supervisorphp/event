@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\Indigo\Supervisor\Event\Handler;
+namespace spec\Supervisor\Event\Handler;
 
-use Indigo\Supervisor\Event\Notification;
-use Indigo\Supervisor\Exception\EventHandlingFailed;
+use Supervisor\Event\Notification;
+use Supervisor\Exception\EventHandlingFailed;
 use PhpSpec\ObjectBehavior;
 
 class CallbackSpec extends ObjectBehavior
@@ -15,12 +15,12 @@ class CallbackSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Indigo\Supervisor\Event\Handler\Callback');
+        $this->shouldHaveType('Supervisor\Event\Handler\Callback');
     }
 
     function it_is_a_handler()
     {
-        $this->shouldImplement('Indigo\Supervisor\Event\Handler');
+        $this->shouldImplement('Supervisor\Event\Handler');
     }
 
     function it_handles_a_notification(Notification $notification)
@@ -31,6 +31,6 @@ class CallbackSpec extends ObjectBehavior
     function it_throws_an_exception_when_handling_failed(Notification $notification)
     {
         $this->beConstructedWith(function() { throw new EventHandlingFailed; });
-        $this->shouldThrow('Indigo\Supervisor\Exception\EventHandlingFailed')->duringHandle($notification);
+        $this->shouldThrow('Supervisor\Exception\EventHandlingFailed')->duringHandle($notification);
     }
 }

@@ -1,9 +1,9 @@
 {
-    "name": "indigophp/supervisor-event",
+    "name": "supervisorphp/event",
     "description": "Listen to Supervisor events in PHP",
     "license": "MIT",
     "keywords": ["supervisor", "event", "listener"],
-    "homepage": "https://indigophp.com",
+    "homepage": "http://supervisorphp.com",
     "authors": [
         {
             "name": "Márk Sági-Kazár",
@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Indigo\\Supervisor\\": "src/"
+            "Supervisor\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Indigo\\Supervisor\\Stub\\": "stub/"
+            "Supervisor\\Stub\\": "stub/"
         }
     },
     "extra": {

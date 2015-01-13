@@ -1,19 +1,19 @@
 <?php
 
 /*
- * This file is part of the Indigo Supervisor package.
+ * This file is part of the Supervisor Event package.
  *
- * (c) Indigo Development Team
+ * (c) Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Supervisor\Stub;
+namespace Supervisor\Stub;
 
-use Indigo\Supervisor\Event\Notification;
-use Indigo\Supervisor\Exception\EventHandlingFailed;
-use Indigo\Supervisor\Exception\StopListener;
+use Supervisor\Event\Notification;
+use Supervisor\Exception\EventHandlingFailed;
+use Supervisor\Exception\StopListener;
 
 /**
  * Handles notifications a limited time only
@@ -22,7 +22,7 @@ use Indigo\Supervisor\Exception\StopListener;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Handler implements \Indigo\Supervisor\Event\Handler
+class Handler implements \Supervisor\Event\Handler
 {
     /**
      * Stores how many times the handler was called
