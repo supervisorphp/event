@@ -3,6 +3,7 @@
 [![Latest Version](https://img.shields.io/github/release/supervisorphp/event.svg)](https://github.com/supervisorphp/event/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 [![Total Downloads](https://img.shields.io/packagist/dt/supervisorphp/event.svg)](https://packagist.org/packages/supervisorphp/event)
+[![Test Suite](https://github.com/supervisorphp/event/workflows/Test%20Suite/badge.svg)](https://github.com/supervisorphp/event/actions)
 
 **Listen to Supervisor events in PHP.**
 
