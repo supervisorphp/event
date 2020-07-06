@@ -9,25 +9,26 @@
  * file that was distributed with this source code.
  */
 
-namespace Supervisor\Event;
+namespace Supervisor\Event\Handler;
 
-use Supervisor\Exception\EventHandlingFailed;
-use Supervisor\Exception\StopListener;
+use Supervisor\Event\Notification;
+use Supervisor\Exception\EventHandlingFailedException;
+use Supervisor\Exception\StopListenerException;
 
 /**
  * Handles Notifications
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-interface Handler
+interface HandlerInterface
 {
     /**
      * Handles a notification
      *
      * @param Notification $notification
      *
-     * @throws EventHandlingFailed If event handling fails
-     * @throws StopListener        If listener should be stopped
+     * @throws EventHandlingFailedException If event handling fails
+     * @throws StopListenerException        If listener should be stopped
      */
-    public function handle(Notification $notification);
+    public function handle(Notification $notification): void;
 }

@@ -11,7 +11,6 @@
 
 namespace Supervisor\Event\Handler;
 
-use Supervisor\Event\Handler;
 use Supervisor\Event\Notification;
 
 /**
@@ -19,7 +18,7 @@ use Supervisor\Event\Notification;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Callback implements Handler
+class CallbackHandler implements HandlerInterface
 {
     /**
      * @var callable
@@ -37,7 +36,7 @@ class Callback implements Handler
     /**
      * {@inheritdoc}
      */
-    public function handle(Notification $notification)
+    public function handle(Notification $notification): void
     {
         call_user_func($this->callback, $notification);
     }

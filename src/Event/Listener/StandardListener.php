@@ -16,7 +16,7 @@ namespace Supervisor\Event\Listener;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Standard extends Stream
+class StandardListener extends AbstractStreamListener
 {
     /**
      * @var resource
@@ -78,7 +78,7 @@ class Standard extends Stream
     /**
      * {@inheritdoc}
      */
-    protected function read($length = null)
+    protected function read($length = null): string
     {
         if (is_null($length)) {
             return trim(fgets($this->inputStream));

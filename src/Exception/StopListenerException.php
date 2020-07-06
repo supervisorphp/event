@@ -16,7 +16,7 @@ namespace Supervisor\Exception;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class StopListener extends \Exception
+class StopListenerException extends \Exception
 {
 
 }

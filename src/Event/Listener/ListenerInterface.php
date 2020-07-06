@@ -9,14 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Supervisor\Exception;
+namespace Supervisor\Event\Listener;
+
+use Supervisor\Event\Handler\HandlerInterface;
 
 /**
- * This exception should be thrown then handling a notification failed
+ * Listens to events
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class EventHandlingFailed extends \Exception
+interface ListenerInterface
 {
-
+    /**
+     * Starts listening for events
+     *
+     * @param HandlerInterface $handler
+     */
+    public function listen(HandlerInterface $handler): void;
 }

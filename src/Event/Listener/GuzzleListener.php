@@ -19,7 +19,7 @@ use GuzzleHttp\Stream\Utils;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Guzzle extends Stream
+class GuzzleListener extends AbstractStreamListener
 {
     /**
      * @var StreamInterface
@@ -46,7 +46,7 @@ class Guzzle extends Stream
      *
      * @return StreamInterface
      */
-    public function getInputStream()
+    public function getInputStream(): StreamInterface
     {
         return $this->inputStream;
     }
@@ -56,7 +56,7 @@ class Guzzle extends Stream
      *
      * @return StreamInterface
      */
-    public function getOutputStream()
+    public function getOutputStream(): StreamInterface
     {
         return $this->outputStream;
     }
@@ -64,7 +64,7 @@ class Guzzle extends Stream
     /**
      * {@inheritdoc}
      */
-    protected function read($length = null)
+    protected function read($length = null): string
     {
         if (is_null($length)) {
             return trim(Utils::readLine($this->inputStream));

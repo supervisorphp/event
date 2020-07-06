@@ -3,6 +3,7 @@
 namespace spec\Supervisor\Event;
 
 use PhpSpec\ObjectBehavior;
+use Supervisor\Event\Notification;
 
 class NotificationSpec extends ObjectBehavior
 {
@@ -29,7 +30,7 @@ class NotificationSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Supervisor\Event\Notification');
+        $this->shouldHaveType(Notification::class);
     }
 
     function it_has_a_name()

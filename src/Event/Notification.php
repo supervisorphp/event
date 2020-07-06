@@ -50,11 +50,11 @@ class Notification
     /**
      * Returns the event name
      *
-     * @return string
+     * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
-        return isset($this->header['eventname']) ? $this->header['eventname'] : null;
+        return $this->header['eventname'] ?? null;
     }
 
     /**
@@ -70,7 +70,7 @@ class Notification
             return $this->header;
         }
 
-        return isset($this->header[$key]) ? $this->header[$key] : null;
+        return $this->header[$key] ?? null;
     }
 
     /**
@@ -86,7 +86,7 @@ class Notification
             return $this->payload;
         }
 
-        return isset($this->payload[$key]) ? $this->payload[$key] : null;
+        return $this->payload[$key] ?? null;
     }
 
     /**
@@ -94,7 +94,7 @@ class Notification
      *
      * @return string
      */
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }

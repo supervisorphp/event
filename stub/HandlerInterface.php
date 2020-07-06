@@ -12,8 +12,8 @@
 namespace Supervisor\Stub;
 
 use Supervisor\Event\Notification;
-use Supervisor\Exception\EventHandlingFailed;
-use Supervisor\Exception\StopListener;
+use Supervisor\Exception\EventHandlingFailedException;
+use Supervisor\Exception\StopListenerException;
 
 /**
  * Handles notifications a limited time only
@@ -22,7 +22,7 @@ use Supervisor\Exception\StopListener;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Handler implements \Supervisor\Event\Handler
+class HandlerInterface implements \Supervisor\Event\Handler\HandlerInterface
 {
     /**
      * Stores how many times the handler was called
@@ -34,16 +34,16 @@ class Handler implements \Supervisor\Event\Handler
     /**
      * {@inheritdoc}
      */
-    public function handle(Notification $notification)
+    public function handle(Notification $notification): void
     {
         $this->count++;
 
         if ($this->count === 1) {
             return;
         } elseif ($this->count === 2) {
-            throw new EventHandlingFailed;
+            throw new EventHandlingFailedException();
         } else {
-            throw new StopListener;
+            throw new StopListenerException();
         }
     }
 }

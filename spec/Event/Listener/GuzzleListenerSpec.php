@@ -3,10 +3,12 @@
 namespace spec\Supervisor\Event\Listener;
 
 use GuzzleHttp\Stream\StreamInterface;
-use Supervisor\Stub\Handler;
 use PhpSpec\ObjectBehavior;
+use Supervisor\Stub\HandlerInterface;
+use Supervisor\Event\Listener\AbstractStreamListener;
+use Supervisor\Event\Listener\ListenerInterface;
 
-class GuzzleSpec extends ObjectBehavior
+class GuzzleListenerSpec extends ObjectBehavior
 {
     function let(StreamInterface $inputStream, StreamInterface $outputStream)
     {
@@ -15,12 +17,12 @@ class GuzzleSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Supervisor\Event\Listener\Stream');
+        $this->shouldHaveType(AbstractStreamListener::class);
     }
 
     function it_is_a_listener()
     {
-        $this->shouldImplement('Supervisor\Event\Listener');
+        $this->shouldImplement(ListenerInterface::class);
     }
 
     function it_has_an_input_stream(StreamInterface $inputStream)
@@ -35,7 +37,7 @@ class GuzzleSpec extends ObjectBehavior
 
     function it_listens_to_events(StreamInterface $inputStream, StreamInterface $outputStream)
     {
-        $handler = new Handler;
+        $handler = new HandlerInterface;
 
         $header = '';
 

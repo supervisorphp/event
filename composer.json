@@ -8,18 +8,35 @@
         {
             "name": "Márk Sági-Kazár",
             "email": "mark.sagikazar@gmail.com"
+        },
+        {
+            "name": "Buster Neece",
+            "email": "buster@busterneece.com"
         }
     ],
     "require": {
-        "php": ">=5.4"
+        "php": ">=7.3"
     },
     "require-dev": {
+        "overtrue/phplint": "^2.0",
         "guzzlehttp/streams": ">=2.0",
-        "phpspec/phpspec": "~2.1",
-        "henrikbjorn/phpspec-code-coverage" : "~1.0"
+        "phpspec/phpspec": "^6.2",
+        "phpstan/phpstan": "^0.12.32",
+        "phpstan/phpstan-strict-rules": "^0.12.2"
     },
     "suggest": {
         "guzzlehttp/streams": "Used by Stream listener"
+    },
+    "scripts": {
+        "ci": [
+            "@composer install --prefer-dist --no-progress --no-suggest",
+            "@phplint",
+            "@phpstan",
+            "@phpspec"
+        ],
+        "phplint": "phplint",
+        "phpstan": "phpstan analyze",
+        "phpspec": "phpspec run"
     },
     "autoload": {
         "psr-4": {

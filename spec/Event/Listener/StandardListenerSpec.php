@@ -2,29 +2,33 @@
 
 namespace spec\Supervisor\Event\Listener;
 
-use Supervisor\Stub\Handler;
 use PhpSpec\ObjectBehavior;
+use Supervisor\Stub\HandlerInterface;
+use Supervisor\Event\Listener\StandardListener;
+use Supervisor\Event\Listener\ListenerInterface;
 
-class StandardSpec extends ObjectBehavior
+class StandardListenerSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Supervisor\Event\Listener\Standard');
+        $this->shouldHaveType(StandardListener::class);
     }
 
     function it_is_a_listener()
     {
-        $this->shouldImplement('Supervisor\Event\Listener');
+        $this->shouldImplement(ListenerInterface::class);
     }
 
     function it_has_an_input_stream()
     {
-        $this->getInputStream()->shouldReturn(STDIN);
+        $this->getInputStream()
+            ->shouldReturn(STDIN);
     }
 
     function it_has_an_output_stream()
     {
-        $this->getOutputStream()->shouldReturn(STDOUT);
+        $this->getOutputStream()
+            ->shouldReturn(STDOUT);
     }
 
     function it_throws_an_exception_when_invalid_resource_passed()
@@ -34,7 +38,7 @@ class StandardSpec extends ObjectBehavior
 
     function it_listens_to_events()
     {
-        $handler = new Handler;
+        $handler = new HandlerInterface;
         $inputStream = fopen('php://temp', 'r+');
         $outputStream = fopen('php://temp', 'r+');
 

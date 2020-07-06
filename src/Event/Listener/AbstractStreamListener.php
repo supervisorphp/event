@@ -11,18 +11,17 @@
 
 namespace Supervisor\Event\Listener;
 
-use Supervisor\Event\Listener;
-use Supervisor\Event\Handler;
+use Supervisor\Event\Handler\HandlerInterface;
 use Supervisor\Event\Notification;
-use Supervisor\Exception\EventHandlingFailed;
-use Supervisor\Exception\StopListener;
+use Supervisor\Exception\EventHandlingFailedException;
+use Supervisor\Exception\StopListenerException;
 
 /**
  * Base for stream based listeners
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-abstract class Stream implements Listener
+abstract class AbstractStreamListener implements ListenerInterface
 {
     /**
      * Listener state: listen to events or not
@@ -34,7 +33,7 @@ abstract class Stream implements Listener
     /**
      * {@inheritdoc}
      */
-    public function listen(Handler $handler)
+    public function listen(HandlerInterface $handler): void
     {
         while ($this->listen) {
             $this->write("READY\n");
@@ -48,17 +47,17 @@ abstract class Stream implements Listener
     /**
      * Handles the notification
      *
-     * @param Handler      $handler
+     * @param HandlerInterface      $handler
      * @param Notification $notification
      */
-    protected function handle(Handler $handler, Notification $notification)
+    protected function handle(HandlerInterface $handler, Notification $notification): void
     {
         try {
             $handler->handle($notification);
             $this->write("RESULT 2\nOK");
-        } catch (EventHandlingFailed $e) {
+        } catch (EventHandlingFailedException $e) {
             $this->write("RESULT 4\nFAIL");
-        } catch (StopListener $e) {
+        } catch (StopListenerException $e) {
             $this->listen = false;
         }
     }
@@ -66,9 +65,9 @@ abstract class Stream implements Listener
     /**
      * Returns notification from input stream if available
      *
-     * @return Notification
+     * @return Notification|null
      */
-    protected function getNotification()
+    protected function getNotification(): ?Notification
     {
         if ($header = $this->read()) {
             $header = $this->parseData($header);
@@ -77,12 +76,14 @@ abstract class Stream implements Listener
             $payload = explode("\n", $payload, 2);
             isset($payload[1]) or $payload[1] = null;
 
-            list($payload, $body) = $payload;
+            [$payload, $body] = $payload;
 
             $payload = $this->parseData($payload);
 
             return new Notification($header, $payload, $body);
         }
+
+        return null;
     }
 
     /**
@@ -92,7 +93,7 @@ abstract class Stream implements Listener
      *
      * @return array
      */
-    protected function parseData($rawData)
+    protected function parseData($rawData): array
     {
         $outputData = [];
 
@@ -111,12 +112,14 @@ abstract class Stream implements Listener
      *
      * @return string
      */
-    abstract protected function read($length = null);
+    abstract protected function read($length = null): string;
 
     /**
      * Writes data to output stream
      *
      * @param string $value
+     *
+     * @return int|string
      */
     abstract protected function write($value);
 }
