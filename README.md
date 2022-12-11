@@ -43,7 +43,7 @@ Additionally you can use two exceptions to control the listeners itself:
 
 Any other unhandled exceptions/errors will cause the listener to stop.
 
-Check the Supervisor docs for more about [Events](http://supervisord.org/events.htm).
+Check the Supervisor docs for more about [Events](http://supervisord.org/events.html).
 
 ## Testing
 
